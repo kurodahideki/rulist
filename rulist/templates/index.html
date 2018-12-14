@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ title }}</div>
+        <div class="table-responsive">
+            <table border="1" class="table table-striped table-bordered text-nowrap table-hover table-condensed text-center">
+                <thead>
+                    <tr>
+                        {% for th in splitList.axes[1] %}
+                        <th>{{ th }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                {#
+                <tbody>
+                    {% for tr in lapList.axes[0] %}
+                    <tr>
+                        <td><input type="submit" name="bibNo" value="{{ lapList.loc[tr, 'No'] }}" class="btn btn-primary btn-xs btn-block" /></td>
+                        <td>{{ lapList.loc[tr, 'Name'] }}</td>
+                        {% for td in lapList.axes[1][2:] %}
+                        <td>{{ lapList.at[tr, td] }}</td>
+                        {% endfor %}
+                    </tr>{% endfor %}
+                </tbody>
+                #}
+                <tbody>
+                    {% for row in splitList.axes[0] %}
+                    <tr>
+                        <td><input type="submit" name="bibNo" value="{{ splitList.loc[row][0] }}" class="btn btn-primary btn-xs btn-block"></td>
+                        <td>{{ splitList.loc[row][1] }}</td>
+                        {% for col in splitList.axes[1][2:] %}
+                        <td>{{ splitList.at[row, col] }}<span class="lap"><br />({{ lapList.at[row, col] }})</span></td>
+                        {% endfor %}
+                    </tr>{% endfor %}
+                </tbody>
+            </table>
+            <form action="{{ url_for('home') }}" method="post" class="form-horizontal">
+                <div class="form-group  form-group-sm">
+                    <textarea name="splitdata_json" hidden>{{ splitList.to_json() }}</textarea>
+                    <textarea name="lapdata_json" hidden>{{ lapList.to_json() }}</textarea>
+                    <textarea name="timedata_json" hidden>{{ timeList.to_json() }}</textarea>
+                    <label for="url" class="control-label col-sm-2">URL:</label>
+                    <input type="text" name="url" id="url" class="form-control">
+                    <label for="bibList" class="control-label col-sm-2">No:</label>
+                    <textarea name="bibList" id="bibList" class="form-control" rows="3" aria-describedby="bibNo-help">{{ bibList }}</textarea>
+                    <input type="submit" value="OK" class="btn btn-primary btn-sm col-sm-offset-2" />
+                </div>
+            </form>
+            {#
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr style="text-align: right;">
+                        {% for col in splitList.axes[1] %}
+                        {% print(col) %}
+                        <th><input type="submit" name="bibNo1" value="{{ col }}" class="btn btn-default"></th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in splitList.axes[1] %}
+                    <tr>
+                        {% for col in splitList.axes[0] %}
+                        {% print(row,col,splitList[row][col]) %}
+                        <td>{{ splitList.loc[row][col] }}<span class="split"><br /></span></td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            #}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
