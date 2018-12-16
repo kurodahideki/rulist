@@ -57,9 +57,9 @@ def home():
         pass
 
     #NaNを空白に変換しソート
-    splitList = splitList.fillna('').sort_index(ascending=True)
-    lapList   = lapList.fillna('').sort_index(ascending=True)
-    timeList  = timeList.fillna('').sort_index(ascending=True)
+    splitList = splitList.fillna('').sort_index(axis=0, ascending=True)
+    lapList   = lapList.fillna('').sort_index(axis=0, ascending=True)
+    timeList  = timeList.fillna('').sort_index(axis=0, ascending=True)
 
     return render_template('index.html',
         title='Runners Update List',
