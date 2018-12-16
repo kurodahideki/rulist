@@ -8,18 +8,18 @@
             <table border="1" class="table table-striped table-bordered text-nowrap table-hover table-condensed text-center">
                 <thead>
                     <tr>
-                        {% for th in splitList.axes[1] %}
+                        {% for th in splitList.columns %}
                         <th>{{ th }}</th>
                         {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in splitList.axes[0] %}
+                    {% for row in splitList.index %}
                     <tr>
                         <td><input type="submit" name="bibNo" value="{{ splitList.loc[row][0] }}" class="btn btn-primary btn-xs btn-block"></td>
                         <td>{{ splitList.loc[row][1] }}</td>
-                        {% for col in splitList.axes[1][2:] %}
-                        <td>{{ splitList.at[row, col] }}<span class="lap"><br />({{ lapList.at[row, col] }})</span></td>
+                        {% for col in splitList.columns[2:] %}
+                        <td>{{ splitList.at[row, col] }}<span class="lap"><br />{{ lapList.at[row, col] }}</span><span class="time"><br />{{ timeList.at[row, col] }}</span></td>
                         {% endfor %}
                     </tr>{% endfor %}
                 </tbody>
