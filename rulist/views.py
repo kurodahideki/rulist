@@ -19,32 +19,40 @@ def home():
     else:
         bibList = ''
     #bibList = '100, 49, ,  100, ,100, a, 50, 50 34, 34,34,５０,33, 22, 110,１００,173,1.2,55.1,-50, +33, .33,A50,100, 78, '
+    if 'raceName' in request.form:
+        raceName = request.form['raceName']
+    else:
+        raceName = ''
     splitList = pd.DataFrame()
     lapList   = pd.DataFrame()
     timeList  = pd.DataFrame()
-    if request.method == 'POST':
-        if 'bibNo' in request.form:
-            bibNo     = int(request.form['bibNo'])
-            splitList = pd.read_json(request.form['splitdata_json'])
-            lapList   = pd.read_json(request.form['lapdata_json'])
-            timeList  = pd.read_json(request.form['timedata_json'])
-            dataNo = getDataByNo(bibNo)           
 
-            if dataNo != None:
-                splitList = pd.concat([splitList.drop(bibNo), dataNo[0]], sort=False)
-                lapList   = pd.concat([lapList.drop(bibNo),   dataNo[1]], sort=False)
-                timeList  = pd.concat([timeList.drop(bibNo),  dataNo[2]], sort=False)
+    if request.method == 'POST':
+        if raceName != '':
+            if 'bibNo' in request.form:
+                bibNo     = int(request.form['bibNo'])
+                splitList = pd.read_json(request.form['splitdata_json'])
+                lapList   = pd.read_json(request.form['lapdata_json'])
+                timeList  = pd.read_json(request.form['timedata_json'])
+                dataNo = getDataByNo(raceName, bibNo)           
+
+                if dataNo != None:
+                    splitList = pd.concat([splitList.drop(bibNo), dataNo[0]], sort=False)
+                    lapList   = pd.concat([lapList.drop(bibNo),   dataNo[1]], sort=False)
+                    timeList  = pd.concat([timeList.drop(bibNo),  dataNo[2]], sort=False)
+            else:
+                bibSet = set([int(bib.strip()) for bib in bibList.split(',') if bib.strip().isdigit()])
+                for bibNo in bibSet:
+                    try:
+                        df = getDataByNo(raceName, bibNo)
+                        if df != None:
+                            splitList = pd.concat([splitList, df[0]], sort=False)
+                            lapList   = pd.concat([lapList, df[1]], sort=False)
+                            timeList  = pd.concat([timeList, df[2]], sort=False)
+                    except:
+                        pass
         else:
-            bibSet = set([int(bib.strip()) for bib in bibList.split(',') if bib.strip().isdigit()])
-            for bibNo in bibSet:
-                try:
-                    df = getDataByNo(bibNo)
-                    if df != None:
-                        splitList = pd.concat([splitList, df[0]], sort=False)
-                        lapList   = pd.concat([lapList, df[1]], sort=False)
-                        timeList  = pd.concat([timeList, df[2]], sort=False)
-                except:
-                    pass
+            pass
     else:
         pass
 
@@ -59,7 +67,8 @@ def home():
         splitList=splitList,
         lapList=lapList,
         timeList=timeList,
-        bibList = bibList)
+        bibList = bibList,
+        raceName = raceName)
 
 
 @app.route('/contact')
@@ -102,12 +111,16 @@ def about():
 #            lap_dict[tdtag_list[0].string] = [tdtag_list[2].string]
 #    return pd.DataFrame(lap_dict, [str(bibNo)])
 
-def getDataByNo(bibNo):
-    fn = r'C:\Users\kuroda\OneDrive\ドキュメント\temp\runnersupdate\2018fukuoka\{0}.html'.format(bibNo)
+def getDataByNo(raceName, bibNo):
+    #url = r'http://update.runnet.jp/2018fujisan/numberfile/{0}.html'.format(bibNo)
+    url = r'http://update.runnet.jp/{raceName}/numberfile/{bibNo}.html'.format(raceName=raceName, bibNo=bibNo)
+    #fn = r'C:\Users\kuroda\OneDrive\ドキュメント\temp\runnersupdate\2018fukuoka\{0}.html'.format(bibNo)
     try:
-        with open(fn, 'r', encoding='UTF-8') as f:
-            html = f.read()
-        f.closed
+        with urllib.request.urlopen(url) as response:
+            html = response.read()
+        #with open(fn, 'r', encoding='UTF-8') as f:
+        #    html = f.read()
+        #f.closed
     except:
         return None
     doc = BeautifulSoup(html, 'html5lib')
