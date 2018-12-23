@@ -1,10 +1,45 @@
-{% extends "layout.html" %}
+﻿{% extends "layout.html" %}
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
-
-<p>url�Ƀ����i�[�Y�A�b�v�f�[�g�̌����y�[�W��URL����͂��Ă��������BNo�Ƀ[�b�P���ԍ�����͂��Ă��������B</p>
-
+<h3>【 使い方 】</h3>
+<p>
+    <img class="img-thumbnail img-responsive" src="/static/images/ru7.png" />
+</p>
+<h4 style="border-left: 10px solid #1e90ff; padding-left: 11px; margin-top: 20px;"> (1) Race: </h4>
+<p>
+    ランナーズアップデートの検索ページのURLの一部(大会名の部分)を入力してください。
+</p>
+<div class="well well-sm">
+    例）加古川マラソンの場合<br />
+    http://update.runnet.jp/<strong>2018kakogawa</strong>/
+</div>
+<p>
+    <img class="img-thumbnail img-responsive" src="/static/images/ru5.png" />
+</p>
+<h4 style="border-left: 10px solid #1e90ff; padding-left: 11px; margin-top: 20px;"> (2) No:</h4>
+<p>
+    Noにはゼッケン番号をカンマ区切りで入力してください。<br />
+    ※ アルファベット付きのゼッケンのときも数字のみを入力<br />
+</p>
+<div class="well well-sm">
+    例）<br />
+    1000, 1111, 1234, 1012<br />
+</div>
+<h4 style="border-left: 10px solid #1e90ff; padding-left: 11px; margin-top: 20px;"> 一覧</h4>
+<p>
+    [OK]ボタンを押すと一覧が表示されます。<br />
+    <img class="img-thumbnail img-responsive" src="/static/images/ru4.png" />
+</p>
+<p>
+    1段目：タイム<br />
+    2段目：ラップ<br />
+    3段目：通過時刻<br />
+</p>
+<p>
+    名前の左のボタンを押すと個別に更新されます。<mark>[OK]ボタンは全て取得するのでサーバーに負荷がかかるため、一覧表示後はなるべくゼッケン番号のボタンを押して個別に更新してください。</mark>
+</p>
+<p>
+    内部的にランナーズアップデートを検索して表示しているだけなので、掲載が終わっている大会の結果は表示出来ません。
+</p>
 {% endblock %}

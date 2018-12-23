@@ -78,7 +78,7 @@ def contact():
         'contact.html',
         title='Contact',
         year=datetime.now().year,
-        message='Your contact page.'
+        message=''
     )
 
 @app.route('/about')
@@ -88,28 +88,8 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        message='Your application description page.'
+        message=''
     )
-
-#def getLapByNo(bibNo):
-#    from bs4 import BeautifulSoup
-#    import pandas as pd
-#    url = r'http://update.runnet.jp/2018fujisan/numberfile/{0}.html'.format(bibNo)
-#    with urllib.request.urlopen(url) as response:
-#        html = response.read()
-#    #fn = r'C:\Users\kuroda\OneDrive\ドキュメント\temp\runnersupdate\2018fukuoka\{0}.html'.format(bibNo)
-#    #with open(fn, 'r', encoding='utf-8') as f:
-#    #    html = f.read()
-#    doc = BeautifulSoup(html, 'html5lib')
-#    lap_dict = {}
-#    lap_dict['No'] = str(bibNo)
-#    lap_dict['Name'] = doc.find('div', id='personalBlock')('dl')[0].dd.string.replace('：', '').strip()
-#    nmlTbl = doc.find('table', attrs={'class': 'sarchList nmlTbl'})
-#    for trtag in nmlTbl('tr'):
-#        tdtag_list = trtag('td')
-#        if len(tdtag_list) > 0:
-#            lap_dict[tdtag_list[0].string] = [tdtag_list[2].string]
-#    return pd.DataFrame(lap_dict, [str(bibNo)])
 
 def getDataByNo(raceName, bibNo):
     #url = r'http://update.runnet.jp/2018fujisan/numberfile/{0}.html'.format(bibNo)

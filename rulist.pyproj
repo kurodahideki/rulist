@@ -37,6 +37,7 @@
     <Folder Include="rulist\static\" />
     <Folder Include="rulist\static\content\" />
     <Folder Include="rulist\static\fonts\" />
+    <Folder Include="rulist\static\images\" />
     <Folder Include="rulist\static\scripts\" />
     <Folder Include="rulist\templates\" />
   </ItemGroup>
@@ -49,6 +50,13 @@
     <Content Include="rulist\static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="rulist\static\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="rulist\static\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="rulist\static\images\ru1.png" />
+    <Content Include="rulist\static\images\ru2.png" />
+    <Content Include="rulist\static\images\ru3.png" />
+    <Content Include="rulist\static\images\ru4.png" />
+    <Content Include="rulist\static\images\ru5.png" />
+    <Content Include="rulist\static\images\ru6.png" />
+    <Content Include="rulist\static\images\ru7.png" />
     <Content Include="rulist\static\scripts\bootstrap.js" />
     <Content Include="rulist\static\scripts\bootstrap.min.js" />
     <Content Include="rulist\static\scripts\jquery-1.10.2.intellisense.js" />
