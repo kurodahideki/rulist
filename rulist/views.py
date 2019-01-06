@@ -92,9 +92,8 @@ def about():
     )
 
 def getDataByNo(raceName, bibNo):
-    #url = r'http://update.runnet.jp/2018fujisan/numberfile/{0}.html'.format(bibNo)
-    url = r'http://update.runnet.jp/{raceName}/numberfile/{bibNo}.html'.format(raceName=raceName, bibNo=bibNo)
     #fn = r'C:\Users\kuroda\OneDrive\ドキュメント\temp\runnersupdate\2018fukuoka\{0}.html'.format(bibNo)
+    url = r'http://update.runnet.jp/{raceName}/numberfile/{bibNo}.html'.format(raceName=raceName, bibNo=bibNo)
     try:
         with urllib.request.urlopen(url) as response:
             html = response.read()

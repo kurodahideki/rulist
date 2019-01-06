@@ -7,6 +7,10 @@
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
+
+    <link rel="stylesheet" href="/static/tablesorter/css/theme.default.min.css">
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="/static/tablesorter/js/jquery.tablesorter.js"></script>
 </head>
 
 <body>
@@ -31,9 +35,18 @@
         {% block content %}{% endblock %}
         <hr />
     </div>
+{#
     <script src="/static/scripts/jquery-1.10.2.js"></script>
+ #}
     <script src="/static/scripts/bootstrap.js"></script>
     <script src="/static/scripts/respond.js"></script>
+    <script>
+        $(document).ready(function ()
+            {
+                $("#ruTable").tablesorter();
+            }
+        );
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 </html>
